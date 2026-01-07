@@ -1,0 +1,11 @@
+{
+  "name": "yamashiro1300",
+  "version": "1.0.0",
+  "description": "Instagram oEmbed proxy for Yamashiro 1300 gallery",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "node --test"
+  }
+}
