@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山代温泉開湯1300年 - Instagram投稿ギャラリー</title>
+    <meta name="description" content="1300年の歴史を持つ山代温泉の魅力をInstagram投稿で紹介。旅館、飲食店、温泉施設、九谷焼など、豊かな文化と伝統をご覧ください。">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="山代温泉開湯1300年 - Instagram投稿ギャラリー">
+    <meta property="og:description" content="1300年の歴史を持つ山代温泉の魅力をInstagram投稿で紹介">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yamashiro-spa.or.jp/">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2B5C7F;
+            --accent: #D4AF37;
+            --background: #F8F7F4;
+            --text: #2C2C2C;
+            --highlight: #E6755E;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: var(--background);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Noto Serif JP', serif;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a3a52 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-icon {
+            color: var(--accent);
+            font-size: 2rem;
+        }
+        
+        .subtitle {
+            font-size: 0.9rem;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-top: 0.25rem;
+        }
+        
+        .instagram-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .instagram-link:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 120px;
+            z-index: 90;
+        }
+        
+        .filter-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .filter-btn {
+            padding: 0.6rem 1.2rem;
+            border: 2px solid var(--primary);
+            background: white;
+            color: var(--primary);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        
+        .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(43, 92, 127, 0.3);
+        }
+        
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(43, 92, 127, 0.3);
+        }
+        
+        /* Gallery Section */
+        .gallery-wrapper {
+            position: relative;
+            height: 80vh;
+            min-height: 600px;
+            overflow: hidden;
+            margin: 3rem 0;
+        }
+        
+        .gallery-container {
+            display: flex;
+            gap: 2rem;
+            padding: 2rem;
+            height: 100%;
+            will-change: transform;
+        }
+        
+        .gallery-item {
+            flex-shrink: 0;
+            width: 450px;
+            height: calc(100% - 4rem);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            background: white;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+        }
+        
+        .gallery-item.hidden {
+            display: none;
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 70%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.1);
+        }
+        
+        .gallery-info {
+            padding: 1.5rem;
+            height: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: white;
+        }
+        
+        .gallery-category {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            width: fit-content;
+            margin-bottom: 0.5rem;
+        }
+        
+        .gallery-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            line-height: 1.4;
+        }
+        
+        .gallery-description {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.6;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .modal-close:hover {
+            background: var(--highlight);
+            color: white;
+            transform: rotate(90deg);
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .modal-info {
+            padding: 2rem;
+        }
+        
+        .modal-category {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        
+        .modal-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-tag {
+            padding: 0.4rem 0.8rem;
+            background: #f0f0f0;
+            color: var(--text);
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .modal-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        
+        .modal-btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a3a52 100%);
+            color: white;
+        }
+        
+        .modal-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(43, 92, 127, 0.4);
+        }
+        
+        .modal-btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .modal-btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .footer-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--accent);
+        }
+        
+        .footer-copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                font-size: 1.4rem;
+            }
+            
+            .filter-section {
+                top: 160px;
+            }
+            
+            .gallery-wrapper {
+                height: 70vh;
+                min-height: 500px;
+            }
+            
+            .gallery-item {
+                width: 350px;
+            }
+            
+            .gallery-title {
+                font-size: 1.1rem;
+            }
+            
+            .modal-content {
+                margin: 1rem;
+            }
+            
+            .modal-image {
+                height: 300px;
+            }
+            
+            .modal-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .gallery-item {
+                width: 280px;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+            
+            .modal-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div>
+                <div class="logo">
+                    <i class="fas fa-torii-gate logo-icon"></i>
+                    <div>
+                        <div>YAMASHIRO 1300</div>
+                        <div class="subtitle">山代温泉開湯1300年</div>
+                    </div>
+                </div>
+            </div>
+            <a href="https://www.instagram.com/yamashiro_1300/" target="_blank" class="instagram-link">
+                <i class="fab fa-instagram"></i>
+                <span>@yamashiro_1300</span>
+            </a>
+        </div>
+    </header>
+    
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-container">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-category="すべて">
+                    <i class="fas fa-border-all"></i>
+                    すべて
+                </button>
+                <button class="filter-btn" data-category="旅館">
+                    <i class="fas fa-hotel"></i>
+                    旅館
+                </button>
+                <button class="filter-btn" data-category="飲食店">
+                    <i class="fas fa-utensils"></i>
+                    飲食店
+                </button>
+                <button class="filter-btn" data-category="温泉施設">
+                    <i class="fas fa-hot-tub"></i>
+                    温泉施設
+                </button>
+                <button class="filter-btn" data-category="文化・芸術">
+                    <i class="fas fa-palette"></i>
+                    文化・芸術
+                </button>
+                <button class="filter-btn" data-category="観光スポット">
+                    <i class="fas fa-map-marked-alt"></i>
+                    観光スポット
+                </button>
+                <button class="filter-btn" data-category="イベント">
+                    <i class="fas fa-calendar-star"></i>
+                    イベント
+                </button>
+                <button class="filter-btn" data-category="グルメ">
+                    <i class="fas fa-drumstick-bite"></i>
+                    グルメ
+                </button>
+                <button class="filter-btn" data-category="お土産">
+                    <i class="fas fa-gift"></i>
+                    お土産
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Gallery Section -->
+    <section class="gallery-wrapper" id="galleryWrapper">
+        <div class="gallery-container" id="galleryContainer">
+            <!-- Gallery items will be dynamically inserted here -->
+        </div>
+    </section>
+    
+    <!-- Loading -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>投稿を読み込み中...</p>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <img class="modal-image" id="modalImage" src="" alt="">
+            <div class="modal-info">
+                <span class="modal-category" id="modalCategory"></span>
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <p class="modal-description" id="modalDescription"></p>
+                <div class="modal-tags" id="modalTags"></div>
+                <div class="modal-actions">
+                    <a class="modal-btn modal-btn-primary" id="modalInstagramLink" href="#" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                        Instagram で見る
+                    </a>
+                    <button class="modal-btn modal-btn-secondary" id="modalShare">
+                        <i class="fas fa-share-alt"></i>
+                        シェア
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3 class="footer-title">山代温泉開湯1300年</h3>
+            <div class="footer-links">
+                <a href="https://yamashiro-spa.or.jp/" target="_blank" class="footer-link">
+                    <i class="fas fa-home"></i> 公式サイト
+                </a>
+                <a href="https://www.instagram.com/yamashiro_1300/" target="_blank" class="footer-link">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="https://yamashiro-spa.or.jp/1300-year-project/" target="_blank" class="footer-link">
+                    <i class="fas fa-info-circle"></i> 1300年事業
+                </a>
+            </div>
+            <p class="footer-copyright">
+                © 2025 山代温泉観光協会 | 1300年の歴史を未来へ
+            </p>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
