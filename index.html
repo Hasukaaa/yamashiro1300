@@ -162,37 +162,37 @@
         
         /* Gallery Section */
         .gallery-wrapper {
-            position: relative;
-            height: 80vh;
-            min-height: 600px;
-            overflow: hidden;
-            margin: 3rem 0;
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem;
         }
         
         .gallery-container {
-            display: flex;
-            gap: 2rem;
-            padding: 2rem;
-            height: 100%;
-            will-change: transform;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
         }
         
         .gallery-item {
-            flex-shrink: 0;
-            width: 450px;
-            height: calc(100% - 4rem);
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
             cursor: pointer;
             position: relative;
             background: white;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .gallery-item.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .gallery-item:hover {
-            transform: scale(1.05) translateY(-10px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.2);
         }
         
         .gallery-item.hidden {
@@ -201,21 +201,21 @@
         
         .gallery-image {
             width: 100%;
-            height: 70%;
+            aspect-ratio: 4 / 3;
             object-fit: cover;
+            display: block;
             transition: transform 0.4s ease;
         }
         
         .gallery-item:hover .gallery-image {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
         
         .gallery-info {
             padding: 1.5rem;
-            height: 30%;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            gap: 0.75rem;
             background: white;
         }
         
@@ -232,9 +232,9 @@
         }
         
         .gallery-title {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
             color: var(--text);
             line-height: 1.4;
         }
@@ -489,16 +489,11 @@
             }
             
             .gallery-wrapper {
-                height: 70vh;
-                min-height: 500px;
-            }
-            
-            .gallery-item {
-                width: 350px;
+                padding: 0 1.5rem;
             }
             
             .gallery-title {
-                font-size: 1.1rem;
+                font-size: 1.05rem;
             }
             
             .modal-content {
@@ -515,8 +510,9 @@
         }
         
         @media (max-width: 480px) {
-            .gallery-item {
-                width: 280px;
+            .gallery-wrapper {
+                margin: 2rem auto;
+                padding: 0 1rem;
             }
             
             .modal-actions {
@@ -653,14 +649,6 @@
             </p>
         </div>
     </footer>
-    
-    <!-- JavaScript - Loaded at end for performance -->
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- GSAP & ScrollTrigger -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     
     <!-- Main JavaScript -->
     <script src="js/main.js"></script>
