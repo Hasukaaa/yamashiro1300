@@ -26,7 +26,9 @@ async function loadPosts() {
         if (!response.ok) {
             throw new Error('Failed to load posts');
         }
-        allPosts = await response.json();
+        const data = await response.json();
+        // posts.jsonの構造が { "posts": [...] } の場合に対応
+        allPosts = data.posts || data;
         renderGallery(allPosts);
         hideLoading();
     } catch (error) {
