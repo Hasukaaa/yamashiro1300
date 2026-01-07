@@ -5,6 +5,8 @@
 let allPosts = [];
 let currentFilter = 'すべて';
 let isAnimating = false;
+const FALLBACK_IMAGE =
+    'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"%3E%3Crect fill="%23f0f0f0" width="800" height="800"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dominant-baseline="middle"%3EImage unavailable%3C/text%3E%3C/svg%3E';
 
 // DOMContentLoaded イベント
 document.addEventListener('DOMContentLoaded', function() {
@@ -62,6 +64,12 @@ function createGalleryItem(post, index) {
     const img = document.createElement('img');
     img.className = 'gallery-image';
     img.alt = post.title;
+    img.decoding = 'async';
+    img.onerror = () => {
+        if (img.src !== FALLBACK_IMAGE) {
+            img.src = FALLBACK_IMAGE;
+        }
+    };
     
     // Lazy loading属性を追加（パフォーマンス改善）
     img.loading = 'lazy';
@@ -73,8 +81,12 @@ function createGalleryItem(post, index) {
         img.dataset.src = post.imageUrl;
         img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23f0f0f0" width="400" height="300"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dominant-baseline="middle"%3ELoading...%3C/text%3E%3C/svg%3E';
         
-        // Intersection Observer で遅延読み込み
-        observeImage(img);
+        // Intersection Observer で遅延読み込み（未対応の場合は即時読み込み）
+        const isObserved = observeImage(img);
+        if (!isObserved) {
+            img.src = post.imageUrl;
+            img.removeAttribute('data-src');
+        }
     }
     
     // 情報セクション
@@ -110,6 +122,9 @@ function createGalleryItem(post, index) {
 let imageObserver;
 
 function observeImage(img) {
+    if (!('IntersectionObserver' in window)) {
+        return false;
+    }
     if (!imageObserver) {
         imageObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -128,6 +143,7 @@ function observeImage(img) {
     }
     
     imageObserver.observe(img);
+    return true;
 }
 
 // フィルターボタンのセットアップ
@@ -159,18 +175,22 @@ function applyFilter(category) {
         if (category === 'すべて' || itemCategory === category) {
             item.classList.remove('hidden');
             // GSAP でフェードイン
-            gsap.to(item, {
-                opacity: 1,
-                scale: 1,
-                duration: 0.3
-            });
+            if (typeof gsap !== 'undefined') {
+                gsap.to(item, {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.3
+                });
+            }
         } else {
             item.classList.add('hidden');
-            gsap.to(item, {
-                opacity: 0,
-                scale: 0.8,
-                duration: 0.3
-            });
+            if (typeof gsap !== 'undefined') {
+                gsap.to(item, {
+                    opacity: 0,
+                    scale: 0.8,
+                    duration: 0.3
+                });
+            }
         }
     });
 }
@@ -321,13 +341,17 @@ function setupScrollAnimation() {
 function hideLoading() {
     const loading = document.getElementById('loading');
     if (loading) {
-        gsap.to(loading, {
-            opacity: 0,
-            duration: 0.3,
-            onComplete: () => {
-                loading.style.display = 'none';
-            }
-        });
+        if (typeof gsap !== 'undefined') {
+            gsap.to(loading, {
+                opacity: 0,
+                duration: 0.3,
+                onComplete: () => {
+                    loading.style.display = 'none';
+                }
+            });
+        } else {
+            loading.style.display = 'none';
+        }
     }
 }
 
@@ -360,5 +384,7 @@ function debounce(func, wait) {
 // ウィンドウリサイズ時の処理（デバウンス付き）
 window.addEventListener('resize', debounce(() => {
     // 必要に応じてレイアウト調整
-    ScrollTrigger.refresh();
+    if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.refresh();
+    }
 }, 250));
